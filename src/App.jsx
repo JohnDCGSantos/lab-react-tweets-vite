@@ -1,5 +1,7 @@
+import { useState } from 'react'
 import './App.css'
 import Tweet from './components/Tweet'
+import { v4 as uuidv4 } from 'uuid'
 
 const tweetsArray = [
   {
@@ -38,11 +40,12 @@ const tweetsArray = [
 ]
 
 function App() {
+  const [tweets, setTweets] = useState(tweetsArray.map(tweet => ({ ...tweet, id: uuidv4() })))
   return (
     <div className='App'>
-      <Tweet tweet={tweetsArray[0]} />
-      <Tweet tweet={tweetsArray[1]} />
-      <Tweet tweet={tweetsArray[2]} />
+      {tweets.map(tweet => {
+        return <Tweet key={tweet.id} tweet={tweet} />
+      })}
     </div>
   )
 }
